@@ -1,0 +1,19 @@
+Blood Bank management system
+
+Donor Table:                                       			    Blood Bank:
+	
+D_id(pk)  D_Name  Blood_Type  D_newdate      D_Health       D_pno        	 Blood_Type(pk)  B_bagsQty  
+d-101	  Raj	  a+	      29-02-22    healthy       9810096175       	 a+		  30     
+d-102     Mohit   o+          20-03-22    healthy       8527098735       	 o+               70
+d-103     Rahul   b+          20-03-22    healthy       9810097165       	 b+               20
+
+
+Recepient Table:
+
+R_id(pk)  R_name  R_pno       R_date    Blood_type(fk)  
+r-201	  Rohit	  9010076156  29-02-22  o+           
+r-202	  Sham	  7645326719  16-08-22  a+  
+
+
+
+D_id  D_freq  D_Lastdate 
