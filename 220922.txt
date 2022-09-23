@@ -1,0 +1,29 @@
+
+EMPLOYEE TABLE
+emp_id(PK) emp_name dob gender pincode(fk) emp_no salary job_id d_id
+
+
+
+ADDRESS
+pincode(pk) state city area
+
+
+
+
+JOB TABLE
+job_id(pk) j_title j_des
+
+
+
+
+DEPARTMENT
+dep_id(pk) code d_des
+
+
+
+
+VACANCY
+vac_id(pk) job_id(fk) d_id(fk) openings
+
+
+
