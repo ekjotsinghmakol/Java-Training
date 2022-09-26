@@ -1,0 +1,108 @@
+create database DPhoneCorp;
+use DPhoneCorp;
+
+-- USER TABLE --
+create table User(
+userId int PRIMARY KEY NOT NULL,
+user_first_name char(15), user_last_name char(15), user_address varchar(30), 
+user_mobile char(10), user_email varchar(20), username char(15),
+password varchar(20), referal_points int
+);
+
+insert into User values (101,'Mahesh','Kumar','New Delhi','8627024573','mkum@gmail.com','mkum','mkum19998',0);
+insert into User values (102,'Rajesh','Kumar','New Delhi','9810096175','rkum@gmail.com','rkum','rkum19996',0);
+insert into User values (103,'Harish','Singh','Gurgaon','9910065176','hsingh@gmail.com','hsingh','hsingh1994',0);
+insert into User values (104,'Ram','Kapoor','Noida','9711999212','rkap@gmail.com','rkap','rkap19993',0);
+insert into User values (105,'Harsh','Yadav','Mumbai','9811319212','hyad@gmail.com','hyad','hyad19992',0);
+
+DROP TABLE User;
+Drop table Referral;
+drop table Customer;
+Drop Table BuyingDetails;
+
+-- REFERRAL TABLE --
+create table Referral(
+referalId int PRIMARY KEY NOT NULL,
+ref_first_name char(15), ref_last_name char(15), ref_mobile char(10), ref_email varchar(20),
+date_of_ref date, status char(10),userId int,
+	CONSTRAINT FK_userId1
+    FOREIGN KEY(userId)
+    REFERENCES User(userId)
+);
+
+insert into Referral values (201,'Daksh','Khanna','8627024573','dk@gmail.com','2022-6-09','ACTIVE',101);
+insert into Referral values (202,'Dilshan','Singh','9811029920','dsingh@gmail.com','2022-7-09','ACTIVE',102);
+insert into Referral values (203,'Aryaman','Singh','8627024789','asingh@gmail.com','2022-6-15','ACTIVE',102);
+insert into Referral values (204,'Akshat','Jain','9212999999','ajain@gmail.com','2022-8-09','ACTIVE',101);
+insert into Referral values (205,'Raj','Kapoor','9897024573','rkap@gmail.com','2022-9-18','ACTIVE',105);
+
+-- CUSTOMER --
+create table Customer(
+customerId int PRIMARY KEY NOT NULL,
+cust_first_name char(15), cust_last_name char(15), email varchar(20), cust_mobile char(10)
+);
+
+insert into Customer values (301,'Dhruv','Khanna','dk@gmail.com','9657024573');
+insert into Customer values (302,'Harish','Singh','hs@gmail.com','9437024573');
+insert into Customer values (303,'Daksh','Mehta','dm@gmail.com','9217022173');
+insert into Customer values (304,'Ram','Kumar','rk@gmail.com','9456024533');
+insert into Customer values (305,'Dan','Kapoor','dkap@gmail.com','9897024453');
+
+-- BUYER TABLE --
+create table BuyingDetails(
+customerId int,
+CONSTRAINT FK_custId1
+FOREIGN KEY(customerId)
+REFERENCES Customer(customerId),
+userId int,
+CONSTRAINT FK_userId2
+FOREIGN KEY(userId)
+REFERENCES User(userId),
+purchase_date date, productName varchar(20)
+);
+insert into BuyingDetails values (301,101,'2022-10-22','Iphone14');
+insert into BuyingDetails values (302,101,'2022-11-22','Iphone14');
+insert into BuyingDetails values (303,102,'2022-10-29','Iphone12');
+insert into BuyingDetails values (304,102,'2022-9-30','Iphone13');
+insert into BuyingDetails values (305,105,'2022-12-22','Iphone14pro');
+
+-- REFERRAL MADE BY USER HAVING USERID 101 --
+select * from referral where userId = 101;
+select * from referral where userId = 102;
+select * from referral where userId = 103;
+
+-- Display name and mobile of user whose referral customer have purchased item on 22/10/2022 --
+SELECT u.user_first_name, u.user_mobile FROM User u
+LEFT JOIN BuyingDetails bd
+ON 
+u.userId = bd.userId where bd.purchase_date = '2022-10-22';
+
+-- Write userview to display only first name, last name, mobile and email. --
+CREATE view userview2
+AS
+SELECT u.user_first_name, u.user_last_name, u.user_mobile, u.user_email
+FROM User U
+ORDER BY u.user_email;
+CREATE view userview3
+AS
+SELECT u.user_first_name, u.user_last_name, u.user_mobile, u.user_email
+FROM User U
+ORDER BY u.user_mobile;
+SELECT * FROM userview3;
+
+-- Display details of customer who purchased “iPhone 14” --
+SELECT * FROM BuyingDetails 
+WHERE productName = 'Iphone14';
+
+-- delete all record of customer including purchase details Those have purchased iPhone 14. --
+DELETE Customer, BuyingDetails from Customer c
+inner join
+BuyingDetails b
+on c.customerId = b.customerId
+where productName = "Iphone14";
+
+CREATE TRIGGER refupdatetrigger
+AFTER UPDATE ON User
+FOR EACH ROW 
+set referall_points = referal_points + 1000;
+
