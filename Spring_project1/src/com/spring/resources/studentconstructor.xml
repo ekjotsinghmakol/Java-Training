@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="exam2" class="com.spring.bean.Exam">
+		<constructor-arg value="1002"></constructor-arg>
+		<constructor-arg value="Java"></constructor-arg>
+		<constructor-arg value="100"></constructor-arg>
+	</bean>
+	<bean id="stuNew1" class="com.spring.bean.StudentNew">
+		<constructor-arg value="102"></constructor-arg>
+		<constructor-arg value="Ekjot"></constructor-arg>
+		<constructor-arg value="100000"></constructor-arg>
+		<constructor-arg ref="exam2"></constructor-arg>
+	</bean>
+	
+	<bean id = "exam3" class = "com.spring.bean.Exam">
+		<constructor-arg value="1003"></constructor-arg>
+		<constructor-arg value="Python"></constructor-arg>
+		<constructor-arg value="98"></constructor-arg>
+		
+		<property name = "branches">
+			<list>
+				<value>IT</value>
+				<value>CSE</value>
+				<value>ECE</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

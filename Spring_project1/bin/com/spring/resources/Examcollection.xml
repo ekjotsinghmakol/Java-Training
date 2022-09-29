@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="examcoll1" class="com.spring.bean.ExamCollection"
+		scope="prototype">
+		<property name="eId" value="201"></property>
+		<property name="name" value="Ip"></property>
+		<property name="marks" value="80"></property>
+
+		<property name="branches">
+			<list>
+				<value>IT</value>
+				<value>CSE</value>
+				<value>ECE</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>
